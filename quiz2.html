@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختبار: القوانين والحقوق في مجتمع المعلومات</title>
+<style>
+  :root{
+    --ink:#1c2b24;
+    --paper:#f6f3ea;
+    --panel:#ffffff;
+    --line:#dfd8c4;
+    --moss:#2f6b4f;
+    --moss-dark:#234f3a;
+    --clay:#b5502e;
+    --ok:#2f6b4f;
+    --bad:#b5502e;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Segoe UI","Tahoma",sans-serif;line-height:1.6;}
+  header{background:var(--moss-dark);color:#f6f3ea;padding:36px 20px 30px;text-align:center;}
+  header h1{margin:0 0 6px;font-size:26px;font-weight:700;}
+  header p{margin:0;color:#cfe3d6;font-size:14px;}
+  #progress-wrap{max-width:760px;margin:-16px auto 0;padding:0 20px;}
+  #progress-bar{height:6px;background:#e4ddc9;border-radius:4px;overflow:hidden;}
+  #progress-fill{height:100%;width:0%;background:var(--moss);transition:width .25s ease;}
+  main{max-width:760px;margin:0 auto;padding:26px 20px 60px;}
+  .intro-field{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:14px;}
+  .intro-field label{display:block;font-weight:700;margin-bottom:8px;font-size:15px;}
+  .intro-field input,.intro-field select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:inherit;background:#fbfaf6;}
+  .section-title{margin:34px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--moss);font-size:19px;font-weight:700;color:var(--moss-dark);}
+  .q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:14px;}
+  .q-text{font-weight:700;margin-bottom:12px;font-size:15.5px;}
+  .opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;font-size:14.5px;border:1px solid transparent;}
+  .opt:hover{background:#f1ede0;}
+  .opt input{accent-color:var(--moss);width:16px;height:16px;flex-shrink:0;}
+  .opt.correct{background:#e3f0e8;border-color:var(--ok);font-weight:700;}
+  .opt.wrong{background:#f6e6df;border-color:var(--bad);font-weight:700;}
+  #submit-btn{display:block;width:100%;padding:16px;margin-top:22px;background:var(--moss);color:#fff;border:none;border-radius:9px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;}
+  #submit-btn:hover{background:var(--moss-dark);}
+  #result{display:none;position:sticky;top:12px;z-index:10;background:var(--moss-dark);color:#fff;padding:18px 20px;border-radius:10px;margin-bottom:20px;text-align:center;}
+  #result h2{margin:0 0 4px;font-size:24px;}
+  #result p{margin:0;color:#cfe3d6;font-size:14px;}
+  .missing{color:var(--clay);font-size:13px;margin-top:10px;display:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>الاختبار الثالث - القوانين والحقوق في مجتمع المعلومات</h1>
+  <p>50 سؤالًا - إجابة كل سؤال بنقطة واحدة</p>
+</header>
+
+<div id="progress-wrap"><div id="progress-bar"><div id="progress-fill"></div></div></div>
+
+<main>
+  <form id="quiz-form">
+    <div class="intro-field">
+      <label>الاسم الثلاثي: <span style="color:var(--clay)">*</span></label>
+      <input type="text" required>
+    </div>
+    <div class="intro-field">
+      <label>رقم الهاتف: <span style="color:var(--clay)">*</span></label>
+      <input type="tel" required>
+    </div>
+    <div class="intro-field">
+      <label>المجموعة: <span style="color:var(--clay)">*</span></label>
+      <select required>
+        <option value="" disabled selected>اختر مجموعتك</option>
+        <option>1</option><option>2</option><option>3</option>
+      </select>
+    </div>
+
+    <div id="result">
+      <h2 id="score-text"></h2>
+      <p>الإجابات الصحيحة باللون الأخضر، والخاطئة باللون البرتقالي</p>
+    </div>
+
+    <div id="questions"></div>
+    <p class="missing" id="missing-msg">من فضلك أجب عن جميع الأسئلة قبل التسليم.</p>
+    <button type="submit" id="submit-btn">تسليم الاختبار</button>
+  </form>
+</main>
+
+<script>
+const section1 = [
+{t:'1- البيانات الشخصية هي:', o:['أي بيان يتعلق بشخص طبيعي محدد أو يمكن تحديده','بيانات الشركات فقط','المعلومات المنشورة للعامة','البيانات الإحصائية العامة'], a:0},
+{t:'2- أي مما يلي يُعد من البيانات الأساسية؟', o:['بصمة الإصبع','الاسم والعنوان وتاريخ الميلاد','الآراء السياسية','الحالة الصحية'], a:1},
+{t:'3- رقم جواز السفر ورخصة القيادة والرقم القومي تصنّف كـ:', o:['بيانات أساسية','أرقام الهوية الشخصية','بيانات القياسات الحيوية','بيانات حساسة'], a:1},
+{t:'4- بصمة الإصبع وقزحية العين تصنّف كـ:', o:['بيانات أساسية','أرقام هوية','بيانات القياسات الحيوية','بيانات غير شخصية'], a:2},
+{t:'5- المعلومات التي تتطلب عناية فائقة لأن كشفها قد يسبب ضررًا (كالعرق والدين والآراء السياسية والحالة الصحية) تسمى:', o:['البيانات الأساسية','البيانات الحساسة','البيانات العامة','البيانات المفتوحة'], a:1},
+{t:'6- البيانات الشخصية تشمل ما يمكن تحديد هوية الشخص به بشكل غير مباشر أيضًا.', o:['صح','خطأ'], a:0},
+{t:'7- من مهام قانون حماية البيانات:', o:['منع استخدام الإنترنت','تحديد قواعد جمع البيانات وتنظيم معالجتها','تسويق البيانات للشركات','إلغاء الخصوصية'], a:1},
+{t:'8- مبدأ الموافقة يتطلب:', o:['طلب الموافقة الصريحة وتحديد هوية الطرف الثالث','جمع البيانات دون علم المستخدم','الموافقة الضمنية فقط','موافقة الحكومة فقط'], a:0},
+{t:'9- من استثناءات مشاركة البيانات دون موافقة الفرد:', o:['أغراض تجارية','حماية حياة الشخص أو صحته','بيع البيانات للمعلنين','الفضول الشخصي'], a:1},
+{t:'10- تنفيذ حكم قضائي أو طلب جهة تحقيق يُعد من استثناءات مشاركة البيانات دون موافقة الفرد.', o:['صح','خطأ'], a:0},
+{t:'11- الحق في الخصوصية في الدستور المصري نصت عليه:', o:['المادة 10','المادة 57','المادة 100','المادة 25'], a:1},
+{t:'12- حقوق الصورة تعني:', o:['السماح بنشر أي صورة عامة','منع تصوير الفرد أو استخدام صورته دون إذنه','حق تعديل الصور','حق بيع الصور فقط'], a:1},
+{t:'13- الحقوق التي تهدف لحماية المصالح الاقتصادية للمشاهير عند استغلال صورهم تجاريًا تسمى:', o:['حقوق الدعاية','حقوق المؤلف','الحقوق المجاورة','الحقوق المعنوية'], a:0},
+{t:'14- يُحظر نشر الصور إلا بموافقة من يظهرون فيها.', o:['صح','خطأ'], a:0},
+{t:'15- حماية البيانات في الشركات تعتمد على:', o:['سياسة الخصوصية وترخيص مركز حماية البيانات الشخصية','رغبة المدير فقط','عدد الموظفين','حجم رأس المال'], a:0},
+{t:'16- النظام الذي يشترط الحصول على موافقة المستخدم الصريحة قبل جمع البيانات يسمى:', o:['نظام الاعتراض','نظام الموافقة المسبقة','الترخيص الرسمي','سياسة الخصوصية'], a:1},
+{t:'17- النظام الذي يسمح للشركة بالمعالجة ما لم يعترض المستخدم صراحة ويطلب وقف الخدمة يسمى:', o:['نظام الموافقة المسبقة','نظام الاعتراض','نظام الترخيص','نظام المراجعة'], a:1},
+{t:'18- الوثيقة التي توضح للعملاء كيفية معالجة بياناتهم وحمايتها تسمى:', o:['عقد العمل','سياسة الخصوصية','الترخيص الرسمي','الاتفاقية التجارية'], a:1},
+{t:'19- الشركات تحتاج إلى ترخيص من مركز حماية البيانات للتأكد من التزامها.', o:['صح','خطأ'], a:0},
+{t:'20- الاسم ورقم الهاتف يُعدان من البيانات الشخصية.', o:['صح','خطأ'], a:0},
+{t:'21- البيانات الحساسة يمكن التعامل معها بنفس درجة البيانات الأساسية دون احتياطات إضافية.', o:['صح','خطأ'], a:1},
+{t:'22- من ضوابط قانون حماية البيانات:', o:['بروتوكولات التخزين الآمن وضوابط نقل البيانات','السماح بنقل البيانات بحرية','إلغاء التشفير','نشر البيانات علنًا'], a:0},
+{t:'23- من مبادئ الموافقة أيضًا:', o:['إخفاء هوية الطرف الثالث','الشفافية في المشاركة وتوثيق سجلات الموافقة','تجاهل حقوق صاحب البيانات','التجديد التلقائي دون إخطار'], a:1},
+{t:'24- حماية الأمن القومي والمصلحة العامة تُعد سببًا مشروعًا للمشاركة دون موافقة.', o:['صح','خطأ'], a:0},
+{t:'25- إتمام عقد مع الشخص المعني يُعد من استثناءات مشاركة البيانات دون موافقة منفصلة.', o:['صح','خطأ'], a:0}
+];
+
+const section2 = [
+{t:'26- حقوق الملكية الفكرية تهدف إلى:', o:['حماية نتاج الإبداع البشري في المجالات الأدبية والفنية والصناعية','منع النشر نهائيًا','تقييد التعليم','حماية الممتلكات العقارية'], a:0},
+{t:'27- الملكية الصناعية:', o:['تنشأ تلقائيًا دون تسجيل','تتعلق بالابتكارات التجارية وتشترط التسجيل','تخص الأعمال الأدبية فقط','لا تحتاج حماية قانونية'], a:1},
+{t:'28- حقوق المؤلف:', o:['تتعلق بالفنون والآداب وتُحمى بمجرد الإنشاء','تحتاج تسجيلًا إجباريًا','تخص الاختراعات فقط','مدتها سنة واحدة'], a:0},
+{t:'29- أي مما يلي ليس من أقسام الملكية الفكرية؟', o:['براءات الاختراع','العلامات التجارية','عقود الإيجار','المؤشرات الجغرافية'], a:2},
+{t:'30- مدة حماية براءة الاختراع هي:', o:['10 سنوات','20 سنة من تاريخ التقديم','7 سنوات','50 سنة'], a:1},
+{t:'31- مدة حماية نموذج المنفعة هي:', o:['20 سنة','7 سنوات من تاريخ التقديم','10 سنوات','5 سنوات'], a:1},
+{t:'32- مدة حماية الرسوم والنماذج الصناعية هي:', o:['10 سنوات (تجدد لـ 5 سنوات)','20 سنة','7 سنوات','سنة واحدة'], a:0},
+{t:'33- مدة حماية العلامة التجارية هي:', o:['5 سنوات غير قابلة للتجديد','10 سنوات قابلة للتجديد','20 سنة','مدى الحياة'], a:1},
+{t:'34- نموذج المنفعة يحمي:', o:['اختراعات تقنية جديدة كليًا','تحسينات تقنية بسيطة','رموز تميز المنتجات','المظهر الخارجي للمنتج'], a:1},
+{t:'35- العلامة التجارية تحمي:', o:['المظهر الخارجي للمنتج','رموز تميز المنتجات','التحسينات التقنية','الأعمال الأدبية'], a:1},
+{t:'36- الحقوق المعنوية للمؤلف:', o:['تحمي الصلة بين المبدع وعمله مثل نسب العمل إليه ومنع تشويهه','تُباع وتُشترى بحرية','تنتهي فور النشر','تخص الناشر فقط'], a:0},
+{t:'37- الحقوق المالية للمؤلف تشمل:', o:['نسب العمل للمؤلف','حق الاستغلال الاقتصادي عبر النسخ والتوزيع والترجمة','منع التعديل','حق الاعتراض فقط'], a:1},
+{t:'38- الحقوق المجاورة تُمنح لـ:', o:['المؤلف فقط','المؤدين ومنتجي التسجيلات وهيئات الإذاعة','الجمهور','الناشرين فقط'], a:1},
+{t:'39- مدة حماية حقوق المؤلف تستمر طوال حياته بالإضافة إلى:', o:['10 سنوات بعد وفاته','20 سنة بعد وفاته','50 سنة بعد وفاته','100 سنة بعد وفاته'], a:2},
+{t:'40- حماية حقوق المؤلف تنشأ فور إنشاء العمل دون الحاجة لإجراءات تسجيل رسمية (مبدأ عدم التسجيل).', o:['صح','خطأ'], a:0},
+{t:'41- مفهوم الاستخدام العادل يعني:', o:['السماح باستخدام الأعمال المحمية لأغراض معينة دون إذن للمساهمة في التطور الثقافي','إلغاء حقوق المؤلف','السماح بالبيع التجاري للأعمال','حظر أي استخدام'], a:0},
+{t:'42- أي مما يلي يُعد من صور الاستخدام العادل؟', o:['بيع نسخ مقلدة','الاستخدام داخل المؤسسات التعليمية لأغراض الشرح','توزيع العمل تجاريًا','حذف اسم المؤلف'], a:1},
+{t:'43- الاستنساخ للاستخدام الشخصي مسموح به بشرط عدم الإضرار بالاستغلال العادل للعمل.', o:['صح','خطأ'], a:0},
+{t:'44- من شروط الاقتباس القانوني "تحديد المصدر" ويقصد به:', o:['إخفاء اسم المؤلف','ذكر اسم المؤلف والمصدر بوضوح تام','تغيير النص المقتبس','نشر العمل كاملًا'], a:1},
+{t:'45- شرط "عدم التغيير" في الاقتباس يعني:', o:['الالتزام بنص المادة المقتبسة دون تحريف','حرية تعديل النص','ترجمة النص','اختصار النص كما تشاء'], a:0},
+{t:'46- شرط "التمييز" في الاقتباس يعني:', o:['دمج النص مع كلامك دون فصل','وضع المادة المقتبسة بين علامات تنصيص لتمييزها','حذف علامات التنصيص','تلوين النص'], a:1},
+{t:'47- شرط "التبعية" في الاقتباس يعني:', o:['أن يكون عملك هو الأساس والعمل المقتبس تابعًا له','أن يكون الاقتباس هو معظم العمل','نسخ العمل كاملًا','عدم ذكر المصدر'], a:0},
+{t:'48- في تراخيص المشاع الإبداعي، رمز (BY) يعني:', o:['غير تجاري','وجوب ذكر اسم المؤلف وعنوان العمل الأصلي','بلا اشتقاق','الترخيص بالمثل'], a:1},
+{t:'49- رمز (NC) في تراخيص المشاع الإبداعي يعني:', o:['إسناد الفضل','منع استخدام العمل لأي أغراض ربحية أو تجارية','منع التعديلات','الترخيص بالمثل'], a:1},
+{t:'50- رمز (ND) يعني منع أي تعديلات على العمل الأصلي، بينما (SA) يعني نشر العمل الجديد تحت نفس شروط ترخيص العمل الأصلي.', o:['صح','خطأ'], a:0}
+];
+
+const allQuestions = section1.concat(section2);
+const container = document.getElementById('questions');
+const letters = ['أ','ب','ج','د'];
+
+function renderSection(title, list, startIndex){
+  const h = document.createElement('div');
+  h.className = 'section-title';
+  h.textContent = title;
+  container.appendChild(h);
+  list.forEach((q,i)=>{
+    const idx = startIndex + i;
+    const box = document.createElement('div');
+    box.className='q';
+    box.dataset.index=idx;
+    const qt=document.createElement('div');
+    qt.className='q-text';
+    qt.textContent=q.t;
+    box.appendChild(qt);
+    q.o.forEach((opt,oi)=>{
+      const label=document.createElement('label');
+      label.className='opt';
+      label.innerHTML=`<input type="radio" name="q${idx}" value="${oi}"> ${q.o.length>2? letters[oi]+') ':''}${opt}`;
+      box.appendChild(label);
+    });
+    container.appendChild(box);
+  });
+}
+
+renderSection('القسم الأول: البيانات الشخصية وحماية الخصوصية (1–25)', section1, 0);
+renderSection('القسم الثاني: الملكية الفكرية وحقوق المؤلف والاستخدام العادل (26–50)', section2, 25);
+
+container.addEventListener('change',()=>{
+  const answered=document.querySelectorAll('#questions input[type=radio]:checked').length;
+  document.getElementById('progress-fill').style.width=(answered/allQuestions.length*100)+'%';
+});
+
+document.getElementById('quiz-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const answered=document.querySelectorAll('#questions input[type=radio]:checked').length;
+  const missingMsg=document.getElementById('missing-msg');
+  if(answered<allQuestions.length){missingMsg.style.display='block';return;}
+  missingMsg.style.display='none';
+  let score=0;
+  allQuestions.forEach((q,idx)=>{
+    const box=document.querySelector(`.q[data-index="${idx}"]`);
+    const chosen=document.querySelector(`input[name="q${idx}"]:checked`);
+    const chosenVal=parseInt(chosen.value);
+    box.querySelectorAll('.opt').forEach((optEl,oi)=>{
+      if(oi===q.a) optEl.classList.add('correct');
+      if(oi===chosenVal && chosenVal!==q.a) optEl.classList.add('wrong');
+    });
+    if(chosenVal===q.a) score++;
+  });
+  document.getElementById('score-text').textContent=`النتيجة: ${score} من ${allQuestions.length}`;
+  document.getElementById('result').style.display='block';
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true; btn.textContent='تم التسليم'; btn.style.background='#8a8578';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
